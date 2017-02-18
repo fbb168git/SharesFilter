@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/18 23:27:32                           */
+/* Created on:     2017/2/18 23:32:04                           */
 /*==============================================================*/
 
 
@@ -125,7 +125,7 @@ create table trade_detail
    todayMax             float,
    todayMin             float,
    traNumber            bigint,
-   traAmount            float,
+   traAmount            double,
    minurl               varchar(200),
    dayurl               varchar(200),
    weekurl              varchar(200),
