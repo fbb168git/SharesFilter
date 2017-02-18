@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/18 23:32:04                           */
+/* Created on:     2017/2/19 0:34:48                            */
 /*==============================================================*/
 
 
@@ -85,12 +85,12 @@ create table three_red
 (
    code                 varchar(10) not null,
    name                 varchar(10),
-   today_increase       float,
-   today_start_price    float,
-   today_end_price      float,
-   today_trade_num      bigint,
-   today_max_price      float,
-   today_min_price      float,
+   cur_increase         float,
+   cur_start_price      float,
+   cur_end_price        float,
+   cur_trade_num        bigint,
+   cur_max_price        float,
+   cur_min_price        float,
    pre_increase         float,
    pre_start_price      float,
    pre_end_price        float,
@@ -103,6 +103,9 @@ create table three_red
    prepre_trade_num     bigint,
    prepre_max_price     float,
    prepre_min_price     float,
+   cur_trade_date       date,
+   pre_trade_date       date,
+   prepre_trade_date    date,
    update_time          datetime
 );
 
