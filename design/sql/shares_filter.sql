@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/18 22:44:55                           */
+/* Created on:     2017/2/18 23:27:32                           */
 /*==============================================================*/
 
 
@@ -125,13 +125,13 @@ create table trade_detail
    todayMax             float,
    todayMin             float,
    traNumber            bigint,
-   traAmount            bigint,
-   updateTime           datetime,
+   traAmount            float,
    minurl               varchar(200),
    dayurl               varchar(200),
    weekurl              varchar(200),
    monthurl             varchar(200),
-   status               int
+   status               int,
+   updateTime           datetime
 );
 
 alter table trade_detail
