@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/19 0:34:48                            */
+/* Created on:     2017/2/19 3:19:14                            */
 /*==============================================================*/
 
 
@@ -35,8 +35,10 @@ drop table if exists trade_detail;
 create table filter_result
 (
    id                   int not null,
-   result               text,
-   reason               int,
+   code                 varchar(20),
+   filter_name          char(50),
+   level                int,
+   trade_date           date,
    update_time          datetime
 );
 
@@ -48,8 +50,8 @@ alter table filter_result
 /*==============================================================*/
 create table shares
 (
-   code                 varchar(10) not null,
-   name                 varchar(10),
+   code                 varchar(20) not null,
+   name                 varchar(20),
    update_time          datetime
 );
 
@@ -65,14 +67,16 @@ create table simulate_trade
    code                 varchar(10),
    order_num            varchar(20),
    buy_price            float,
-   buy_time             date,
+   buy_time             datetime,
    buy_num              int,
    buy_amount           float,
-   current_earn         float,
    sale_price           float,
    sale_time            date,
-   update_time          date,
-   reason               int
+   current_earn         float,
+   auto_buy             boolean,
+   auto_sale            boolean,
+   filter_result_id     int,
+   update_time          datetime
 );
 
 alter table simulate_trade
@@ -83,8 +87,8 @@ alter table simulate_trade
 /*==============================================================*/
 create table three_red
 (
-   code                 varchar(10) not null,
-   name                 varchar(10),
+   code                 varchar(20) not null,
+   name                 varchar(20),
    cur_increase         float,
    cur_start_price      float,
    cur_end_price        float,
@@ -117,9 +121,9 @@ alter table three_red
 /*==============================================================*/
 create table trade_detail
 (
-   code                 varchar(10) not null,
+   code                 varchar(20) not null,
    traDate              date not null,
-   name                 varchar(10),
+   name                 varchar(20),
    increPer             float,
    increase             float,
    todayStartPri        float,
