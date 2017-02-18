@@ -1,16 +1,31 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/18 13:29:12                           */
+/* Created on:     2017/2/18 16:51:32                           */
 /*==============================================================*/
 
 
+alter table base_info
+   drop primary key;
+
 drop table if exists base_info;
+
+alter table filter_result
+   drop primary key;
 
 drop table if exists filter_result;
 
+alter table shares
+   drop primary key;
+
 drop table if exists shares;
 
+alter table simulate_trade
+   drop primary key;
+
 drop table if exists simulate_trade;
+
+alter table three_red
+   drop primary key;
 
 drop table if exists three_red;
 
@@ -19,7 +34,7 @@ drop table if exists three_red;
 /*==============================================================*/
 create table base_info
 (
-   code                 int not null,
+   code                 varchar(10) not null,
    name                 varchar(10),
    increPer             float,
    increase             float,
@@ -30,9 +45,11 @@ create table base_info
    todayMin             float,
    traNumber            bigint,
    traAmount            bigint,
-   updateTime           date,
-   primary key (code)
+   updateTime           date
 );
+
+alter table base_info
+   add primary key (code);
 
 /*==============================================================*/
 /* Table: filter_result                                         */
@@ -42,22 +59,26 @@ create table filter_result
    id                   int not null,
    result               text,
    reason               int,
-   update_time          date,
-   primary key (id)
+   update_time          date
 );
+
+alter table filter_result
+   add primary key (id);
 
 /*==============================================================*/
 /* Table: shares                                                */
 /*==============================================================*/
 create table shares
 (
-   code                 int not null,
+   code                 varchar(10) not null,
    name                 varchar(10),
-   update_time          date,
-   primary key (code)
+   update_time          date
 );
 
-alter table shares comment '股票列表';
+alter table shares comment '鑲＄エ鍒楄〃';
+
+alter table shares
+   add primary key (code);
 
 /*==============================================================*/
 /* Table: simulate_trade                                        */
@@ -65,7 +86,7 @@ alter table shares comment '股票列表';
 create table simulate_trade
 (
    id                   int not null,
-   code                 int,
+   code                 varchar(10),
    order_num            varchar(20),
    buy_price            float,
    buy_time             date,
@@ -75,16 +96,18 @@ create table simulate_trade
    sale_price           float,
    sale_time            date,
    update_time          date,
-   reason               int,
-   primary key (id)
+   reason               int
 );
+
+alter table simulate_trade
+   add primary key (id);
 
 /*==============================================================*/
 /* Table: three_red                                             */
 /*==============================================================*/
 create table three_red
 (
-   code                 int not null,
+   code                 varchar(10) not null,
    name                 varchar(10),
    today_increase       float,
    today_start_price    float,
@@ -104,10 +127,9 @@ create table three_red
    prepre_trade_num     bigint,
    prepre_max_price     float,
    prepre_min_price     float,
-   update_time          date,
-   primary key (code)
+   update_time          date
 );
 
-alter table three_red add constraint FK_Reference_1 foreign key (code)
-      references shares (code) on delete restrict on update restrict;
+alter table three_red
+   add primary key (code);
 
