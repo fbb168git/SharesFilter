@@ -1,13 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/18 16:51:32                           */
+/* Created on:     2017/2/18 22:44:55                           */
 /*==============================================================*/
 
-
-alter table base_info
-   drop primary key;
-
-drop table if exists base_info;
 
 alter table filter_result
    drop primary key;
@@ -29,27 +24,10 @@ alter table three_red
 
 drop table if exists three_red;
 
-/*==============================================================*/
-/* Table: base_info                                             */
-/*==============================================================*/
-create table base_info
-(
-   code                 varchar(10) not null,
-   name                 varchar(10),
-   increPer             float,
-   increase             float,
-   todayStartPri        float,
-   yestodEndPri         float,
-   nowPri               float,
-   todayMax             float,
-   todayMin             float,
-   traNumber            bigint,
-   traAmount            bigint,
-   updateTime           date
-);
+alter table trade_detail
+   drop primary key;
 
-alter table base_info
-   add primary key (code);
+drop table if exists trade_detail;
 
 /*==============================================================*/
 /* Table: filter_result                                         */
@@ -59,7 +37,7 @@ create table filter_result
    id                   int not null,
    result               text,
    reason               int,
-   update_time          date
+   update_time          datetime
 );
 
 alter table filter_result
@@ -72,10 +50,8 @@ create table shares
 (
    code                 varchar(10) not null,
    name                 varchar(10),
-   update_time          date
+   update_time          datetime
 );
-
-alter table shares comment '股票列表';
 
 alter table shares
    add primary key (code);
@@ -127,9 +103,37 @@ create table three_red
    prepre_trade_num     bigint,
    prepre_max_price     float,
    prepre_min_price     float,
-   update_time          date
+   update_time          datetime
 );
 
 alter table three_red
    add primary key (code);
+
+/*==============================================================*/
+/* Table: trade_detail                                          */
+/*==============================================================*/
+create table trade_detail
+(
+   code                 varchar(10) not null,
+   traDate              date not null,
+   name                 varchar(10),
+   increPer             float,
+   increase             float,
+   todayStartPri        float,
+   yestodEndPri         float,
+   nowPri               float,
+   todayMax             float,
+   todayMin             float,
+   traNumber            bigint,
+   traAmount            bigint,
+   updateTime           datetime,
+   minurl               varchar(200),
+   dayurl               varchar(200),
+   weekurl              varchar(200),
+   monthurl             varchar(200),
+   status               int
+);
+
+alter table trade_detail
+   add primary key (code, traDate);
 
