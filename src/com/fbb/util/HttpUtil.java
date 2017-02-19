@@ -1,4 +1,4 @@
-package com.fbb;
+package com.fbb.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpUtil {
-	public static String sendGet(String url, String param) {
+	/**
+     * 向指定URL发送GET方法的请求
+     * 
+     * @param url
+     *            发送请求的URL
+     * @param param
+     *            请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @return URL 所代表远程资源的响应结果
+     */
+    public static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -29,7 +38,7 @@ public class HttpUtil {
             Map<String, List<String>> map = connection.getHeaderFields();
             // 遍历所有的响应头字段
             for (String key : map.keySet()) {
-                System.out.println(key + "--->" + map.get(key));
+//            	LogUtil.screenLog(key + "--->" + map.get(key));
             }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(
@@ -39,7 +48,7 @@ public class HttpUtil {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
+            LogUtil.e("发送GET请求出现异常！" + e.getMessage());
             e.printStackTrace();
         }
         // 使用finally块来关闭输入流
@@ -94,7 +103,7 @@ public class HttpUtil {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！"+e);
+        	LogUtil.e("发送 POST 请求出现异常！"+e);
             e.printStackTrace();
         }
         //使用finally块来关闭输出流、输入流
@@ -112,5 +121,5 @@ public class HttpUtil {
             }
         }
         return result;
-    }    
+    } 
 }

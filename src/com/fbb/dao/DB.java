@@ -7,12 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.fbb.util.LogUtil;
+
 public class DB {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "1012987";
+	static final String PASS = "a123456";
+	static final String DBNAME = "shares_filter";
 
 	static Connection conn = null;
 	Statement stmt = null;
@@ -21,18 +24,20 @@ public class DB {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName+"?useSSL=false", "root" , "1012987");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName+"?useSSL=false", "root" , PASS);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			LogUtil.e("getConnection异常 ClassNotFoundException");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("getConnection异常 SQLException "+e.getMessage());
 		}
 
 		return connection;
 	}
 	
 	public static Connection getConnection() {
-		return getConnection("proxyip");
+		return getConnection(DBNAME);
 	}
 	
 
@@ -42,6 +47,7 @@ public class DB {
 			statement = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("createStmt异常 "+e.getMessage());
 		}
 		return statement;
 	}
@@ -52,6 +58,7 @@ public class DB {
 			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("prepareStmt异常 "+e.getMessage()+" sql:"+sql);
 		}
 		return pstmt;
 	}
@@ -62,6 +69,7 @@ public class DB {
 			resultSet = stmt.executeQuery(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("executeQuery异常  "+e.getMessage()+" sql:"+sql);
 		}
 		return resultSet;
 	}
@@ -74,6 +82,7 @@ public class DB {
 			ret = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("executeUpdate异常  "+e.getMessage()+" sql:"+sql);
 		} finally {
 			close(stmt);
 		}
@@ -88,6 +97,7 @@ public class DB {
 			ret = stmt.execute(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogUtil.e("executeSql异常  "+e.getMessage()+" sql:"+sql);
 		} finally {
 			close(stmt);
 		}
@@ -100,6 +110,7 @@ public class DB {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				LogUtil.e("close Connection 异常"+e.getMessage());
 			}
 			conn = null;
 		}
@@ -111,6 +122,7 @@ public class DB {
 				stmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				LogUtil.e("close Statement 异常"+e.getMessage());
 			}
 			stmt = null;
 		}
@@ -122,6 +134,7 @@ public class DB {
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				LogUtil.e("close ResultSet 异常"+e.getMessage());
 			}
 			rs = null;
 		}
