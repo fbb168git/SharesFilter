@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/19 3:19:14                            */
+/* Created on:     2017/2/21 23:45:04                           */
 /*==============================================================*/
 
 
@@ -34,7 +34,7 @@ drop table if exists trade_detail;
 /*==============================================================*/
 create table filter_result
 (
-   id                   int not null,
+   id                   int not null auto_increment,
    code                 varchar(20),
    filter_name          char(50),
    level                int,
