@@ -1,31 +1,16 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/2/21 23:45:04                           */
+/* Created on:     2017/2/22 0:17:05                            */
 /*==============================================================*/
 
 
-alter table filter_result
-   drop primary key;
-
 drop table if exists filter_result;
-
-alter table shares
-   drop primary key;
 
 drop table if exists shares;
 
-alter table simulate_trade
-   drop primary key;
-
 drop table if exists simulate_trade;
 
-alter table three_red
-   drop primary key;
-
 drop table if exists three_red;
-
-alter table trade_detail
-   drop primary key;
 
 drop table if exists trade_detail;
 
@@ -39,11 +24,9 @@ create table filter_result
    filter_name          char(50),
    level                int,
    trade_date           date,
-   update_time          datetime
+   update_time          datetime,
+   primary key (id)
 );
-
-alter table filter_result
-   add primary key (id);
 
 /*==============================================================*/
 /* Table: shares                                                */
@@ -52,11 +35,9 @@ create table shares
 (
    code                 varchar(20) not null,
    name                 varchar(20),
-   update_time          datetime
+   update_time          datetime,
+   primary key (code)
 );
-
-alter table shares
-   add primary key (code);
 
 /*==============================================================*/
 /* Table: simulate_trade                                        */
@@ -76,11 +57,9 @@ create table simulate_trade
    auto_buy             boolean,
    auto_sale            boolean,
    filter_result_id     int,
-   update_time          datetime
+   update_time          datetime,
+   primary key (id)
 );
-
-alter table simulate_trade
-   add primary key (id);
 
 /*==============================================================*/
 /* Table: three_red                                             */
@@ -110,11 +89,9 @@ create table three_red
    cur_trade_date       date,
    pre_trade_date       date,
    prepre_trade_date    date,
-   update_time          datetime
+   update_time          datetime,
+   primary key (code)
 );
-
-alter table three_red
-   add primary key (code);
 
 /*==============================================================*/
 /* Table: trade_detail                                          */
@@ -138,9 +115,7 @@ create table trade_detail
    weekurl              varchar(200),
    monthurl             varchar(200),
    status               int,
-   updateTime           datetime
+   updateTime           datetime,
+   primary key (code, traDate)
 );
-
-alter table trade_detail
-   add primary key (code, traDate);
 
