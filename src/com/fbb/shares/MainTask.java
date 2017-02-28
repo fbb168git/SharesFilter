@@ -4,12 +4,11 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Timer;
 
 import com.fbb.task.HeartBeatTask;
-import com.fbb.task.MorningTask;
-import com.fbb.task.NightTask;
+import com.fbb.timertask.MorningTask;
+import com.fbb.timertask.NightTask;
 import com.fbb.util.Constant;
 import com.fbb.util.LogUtil;
 
@@ -35,7 +34,7 @@ public class MainTask {
 		Timer mainTimer = new Timer();
 		NightTask mNightTask = new NightTask();
 		if(HOUR_OF_DAY >=  NightTaskHour) {
-			mNightTask.run();
+//			mNightTask.run();
 //			mainTimer.schedule(mMorningTask, 0);
 			cal.set(Calendar.DAY_OF_MONTH, DAY_OF_MONTH + 1);//TODO 每月最后一天执行的话会有bug
 		}
@@ -56,9 +55,8 @@ public class MainTask {
 		
 		Timer mainTimer = new Timer();
 		MorningTask mMorningTask = new MorningTask();
+		mMorningTask.run();
 		if(HOUR_OF_DAY >=  MorningTaskHour) {
-			mMorningTask.run();
-//			mainTimer.schedule(mMorningTask, 0);
 			cal.set(Calendar.DAY_OF_MONTH, DAY_OF_MONTH + 1);//TODO 每月最后一天执行的话会有bug
 		}
 		cal.set(Calendar.HOUR_OF_DAY, MorningTaskHour);

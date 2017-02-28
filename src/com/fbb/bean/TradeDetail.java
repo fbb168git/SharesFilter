@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 
+import com.fbb.util.LogUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -29,7 +30,7 @@ public class TradeDetail {
 	private String monthurl;/*月K线图*/
 	private Date traDate;/*交易日期*/
 	private Date updateTime;//更新时间
-	private int status = 0;//交易状态 0正常 1停牌
+	private int status = 0;//交易状态 0正常 1停牌 2
 	
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -42,7 +43,8 @@ public class TradeDetail {
 //			System.out.println("resultcode:"+json.get("resultcode").getAsInt());
 			int resultCode = json.get("resultcode").getAsInt();
 			int errorCode = json.get("error_code").getAsInt();
-			if(resultCode == 200 && errorCode == 0){
+			String reson = json.get("reason").getAsString();
+			if(resultCode == 200 && errorCode == 0) {
 				JsonObject resultObj = json.get("result").getAsJsonArray().get(0).getAsJsonObject();
 				JsonObject data = resultObj.get("data").getAsJsonObject();
 				JsonObject pic = resultObj.get("gopicture").getAsJsonObject();
@@ -76,14 +78,18 @@ public class TradeDetail {
 						e.printStackTrace();
 					}
 				}
-				return result;
-			} else if(resultCode == 202) {
-				//TODO 停牌
-				result.setStatus(1);
-				return result;
+				if(result.getTodayMax() == 0 && result.getTodayMin() == 0 && result.getTraAmount() == 0) {
+					result.setStatus(1);
+				}
 				
-			} else {
+				return result;
+			} else if(resultCode == 202) {//未查询到数据
+//				LogUtil.e("resultCode:" + resultCode + " errorCode:"+errorCode+" reson:"+reson);
+			} else if(resultCode == 112 && errorCode == 10012){//请求次数超限制
+				LogUtil.e("resultCode:" + resultCode + " errorCode:"+errorCode+" reson:"+reson);
 //				System.out.print("resultCode:"+resultCode+" || errorCode:"+errorCode);
+			} else {
+				LogUtil.e("resultCode:" + resultCode + " errorCode:"+errorCode+" reson:"+reson);
 			}
 		}
 		return null;

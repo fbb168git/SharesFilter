@@ -14,7 +14,7 @@ import com.fbb.util.LogUtil;
 
 public class FilterResultDao {
 	public static final String TABLE_NAME = "filter_result";
-	public static final String sql_add = "insert into "+TABLE_NAME+" values (null,?,?,?,?,,now())";
+	public static final String sql_add = "insert into "+TABLE_NAME+" values (null,?,?,?,?,now())";
 	public static final String sql_get_by_trade_date = "select * from "+TABLE_NAME +" where date_format(trade_date,'%Y-%m-%d')=";
 	
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
